@@ -6,4 +6,5 @@
 The below cmdlet installs the nginx server
 
 `$ sudo apt update`
+
 `$ sudo apt install nginx`
