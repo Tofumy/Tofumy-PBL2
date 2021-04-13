@@ -17,8 +17,9 @@ The below cmdlet installs the nginx server
 
 ![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/systemctl-status.JPG)
 
+Enabled the TCP Port 22 for the EC2 instance
 
-
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/inbound-rule.JPG)
 
 
 
