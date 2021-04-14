@@ -44,20 +44,20 @@ The below cmdlet installs the mysql in the server
 
 `$ sudo apt install mysql-server`
 
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/install-mysql.JPG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/install-mysql.JPG)
 
 The below cmdlet runs a security script that removes insecure default settings and lock down access to the database system
 
 `$ sudo mysql_secure_installation`
 
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/secure-sql.JPG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/secure-sql.JPG)
 
 
 This code verifies that we can log in to the MySQL server
 
 `$ sudo mysql`
 
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/test-mysql.JPG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/test-mysql.JPG)
 
 
 
