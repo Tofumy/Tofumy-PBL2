@@ -21,49 +21,20 @@ Enabled the TCP Port 22 for the EC2 instance
 
 ![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/inbound-rule.JPG)
 
+We just used it to confirm if we can access the nginx server locally 
 
+`$ curl http://localhost:80`
 
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/curl-localhost.JPG)
 
+`$ curl http://3.138.202.128:80`
 
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/curl-publicip.JPG)
 
+We tried to access the public Ip over the browser and below is the output
 
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/browser-nginx.JPG)
 
-
-
-
-
-
-
-The below cmdlet runs apache2 package installation
-
-
-
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/Pics2.PNG)
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/Pics2b.PNG)
-
-This code verifies that apache2 is running as a Service in my Server
-
-`$ sudo systemctl status apache2`
-
-![Output of the apache2 installation](https://github.com/Tofumy/Tofumy-PBL/blob/main/Pics3.PNG)
-
-Opened TCP port 80 in the EC2 Instance which is the default port that web browsers use to access web pages on the Internet
-
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/Inboundrule.PNG)
-
-
-Output to check if we can access the apache2 locally
-
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/curl-checks-local.PNG)
-
-Output to check if we can access the apache2 over the internet from any IP address
-
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/curl-checks-internet.PNG)
-
-
-Test that apache server is running over the browser
-
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/apache-browser-test.PNG)
 
 
 
@@ -73,20 +44,23 @@ The below cmdlet installs the mysql in the server
 
 `$ sudo apt install mysql-server`
 
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/install-mysql.PNG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/install-mysql.JPG)
 
-The below cmdlet runs a security script that removes sime insecure default settings and lock down access to the database system
+The below cmdlet runs a security script that removes insecure default settings and lock down access to the database system
 
 `$ sudo mysql_secure_installation`
 
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/secure-sql.PNG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/secure-sql.JPG)
 
 
 This code verifies that we can log in to the MySQL server
 
 `$ sudo mysql`
 
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/test-mysql.PNG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/test-mysql.JPG)
+
+
+
 
 
 
