@@ -13,6 +13,8 @@ The below cmdlet installs the nginx server
 
 ![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/sudo-apt-install.JPG)
 
+We used the below cmdlet to confirm that Nginx server is active
+
 `$ sudo systemctl status nginx`
 
 ![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/systemctl-status.JPG)
