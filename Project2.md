@@ -63,59 +63,74 @@ This code verifies that we can log in to the MySQL server
 
 
 
-
-
-
-
 **Step 3** - Installing PHP
 
-The below cmdlet installs *php* , *libapache2-mod-php* and *php-mysql*
+The below cmdlet installs *php-fpm* (PHP fastCGI process manager) and *php-msql* (PHP module to communicate with MySQL-based databases)
 
-`$ sudo apt install php libapache2-mod-php php-mysql`
+`$ sudo apt install php-fpm php-mysql`
 
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/install-php.PNG)
-
-
-Use the below to confirm your php version 
-
-`$ php -v`
-
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/php-version.PNG)
-
-
-**LAMP stack has been installed completely and it is operational**
+![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/php-install.JPG)
 
 
 
-**Step 4** - Creating a Virtual Host for your Website using Apache 2
+**Step 4** - Configuring Nginx to Use PHP Processor
 
 
-Created a directory for projectlamp using ‘mkdir’ command
+Created a directory for projectLEMP using ‘mkdir’ command
 
-`$ sudo mkdir /var/www/projectlamp`
+`$ sudo mkdir /var/www/projectLEMP`
 
 Assigned ownership to the directory with this variable $USER which still referenced the system user
 
-`$ sudo chown -R $USER:$USER /var/www/projectlamp`
+`$ sudo chown -R $USER:$USER /var/www/projectLEMP`
 
-Created and opened a new configuration file in Apache’s sites-available directory using "vi" command-line editor
+![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/mk-directory.JPG)
 
-`$ sudo vi /etc/apache2/sites-available/projectlamp.conf`
+Created and opened a new configuration file in Nginx’s sites-available directory using "nano" command-line editor
 
-Pasted the below bare-bones configuration by hitting on i on the keyboard to enter the insert mode, and pasted the text:
+`$ sudo nano /etc/nginx/sites-available/projectLEMP`
+
+Pasted the below bare-bones configuration and used Ctrl + X to save it
 
 ```xml
 
-<VirtualHost *:80>
-    ServerName projectlamp
-    ServerAlias www.projectlamp 
-    ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/projectlamp
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
+#/etc/nginx/sites-available/projectLEMP
+
+server {
+    listen 80;
+    server_name projectLEMP www.projectLEMP;
+    root /var/www/projectLEMP;
+
+    index index.html index.htm index.php;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+     }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+}
 
 ```
+![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/nano-insert.JPG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/nano-insert2.JPG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/nano-insert3.JPG)
+
+
+
+
+
+
+
+
+
 
 ### To save and close the file, simply follow the steps below:
 
