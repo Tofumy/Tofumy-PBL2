@@ -69,7 +69,7 @@ The below cmdlet installs *php-fpm* (PHP fastCGI process manager) and *php-msql*
 
 `$ sudo apt install php-fpm php-mysql`
 
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/php-install.JPG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/php-install.JPG)
 
 
 
@@ -84,7 +84,7 @@ Assigned ownership to the directory with this variable $USER which still referen
 
 `$ sudo chown -R $USER:$USER /var/www/projectLEMP`
 
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/mk-directory.JPG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/mk-directory.JPG)
 
 Created and opened a new configuration file in Nginx’s sites-available directory using "nano" command-line editor
 
@@ -119,9 +119,9 @@ server {
 }
 
 ```
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/nano-insert.JPG)
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/nano-insert2.JPG)
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/nano-insert3.JPG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/nano-insert.JPG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/nano-insert2.JPG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/nano-insert3.JPG)
 
 
 
