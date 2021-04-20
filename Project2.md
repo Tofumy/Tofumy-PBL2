@@ -124,107 +124,164 @@ server {
 ![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/nano-insert3.JPG)
 
 
+We used the below to activate the configuration by linking to the config file from Nginx's *sites-enabled* directory
+
+`$ sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/`
+
+We tested the configuration for syntax error using the below cmdlet:
+
+`$ sudo nginx -t`
+
+The output showing that everything is fine
+
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/sudo-nginx-test.JPG)
+
+
+Disabled default Nginx host that is currently configured to listen on port 80
+
+`sudo unlink /etc/nginx/sites-enabled/default`
+
+Reload the Nginx to apply the changes
+
+`$ sudo systemctl reload nginx`
+
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/nginx-reload-unlink.JPG)
+
+
+We then created an index.html file in the */var/www/projectLEMP* to test if the new server block works
+
+`sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html`
+
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/nginx-curl-test.JPG)
+
+We access the public IP on the browser to get what we echo
+
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/nginx-browser-output.JPG)
+
+
+
+**Step 5** - Testing PHP with Nginx
+
+Created a test PHP file in the document root using nano text editor, this is to validate that Nginx can correctly hand *.php* files off to the PHP Processor
+
+`$ nano /var/www/projectLEMP/info.php`
+
+
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/nginx-phpinfo.JPG)
+
+Tried to access the link *http://3.143.233.240/info.php* and we got the below
+
+
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/nginx-browser-phpinfo.JPG)
+
+
+You can use the below to remove the file for security purpose
+`$ sudo rm /var/www/your_domain/info.php`
 
 
 
 
 
+**Step 6** - Retrieving data from MySQL database with PHP
 
 
+Connected to the MySQL console using the root account:
 
-### To save and close the file, simply follow the steps below:
+`$ sudo mysql`
 
-- Hit the esc button on the keyboard
-- Type :
-- Type wq. w for write and q for quit
-- Hit ENTER to save the file
+Created a new database *Tofumy_DB*
 
-Used the below cmdlet to show the new file we created in the sites-available directory
+`CREATE DATABASE `Tofumy_DB`;`
 
-`$ sudo ls /etc/apache2/sites-available`
+Created a new user and granted the user full privileges on the new database created. We used /'mysql_native_password/' as default authentication method
 
-See screenshot of the above cmds ran
+`CREATE USER 'Tofumy'@'%' IDENTIFIED WITH mysql_native_password BY 'damilola';`
 
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/Virtualhost.PNG)
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/Virtualhost2.PNG)
+Gave "Tofumy" permission over the "Tofumy_DB" database:
 
+`GRANT ALL ON Tofumy_DB.* TO 'Tofumy'@'%';`
 
-Enabled the new virtualhost created with the below
-
-`$ sudo a2ensite projectlamp`
-
-Disabled the default website that comes installed with Apache with the below
-
-`$ sudo dissite 000-default`
-
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/enable-disableVH.PNG)
+So we exited the sql session
 
 
-Ran the below cmd to make sure the config file does not contain any syntax error
-
-`$ sudo apache2ctl configtest`
-
-Used the below to reload Apache so the changes can take effect
-
-`$ sudo systemctl reload apache2`
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/DB_Create.JPG)
 
 
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/config-test.PNG)
+Tested to see if we can logging to the SQL Server with that user created and confirmed if we could see the Database created:
+
+`$ mysql -u Tofumy -p`
+
+`SHOW DATABASES`
+
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/DB_login.JPG)
 
 
-Created an index.html file in the */var/www/projectlamp* location for testing if the virtual host works fine
+Then we create a To-do list table:
 
-`sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html`
+``` mysql
 
-
-The below screen shot is the output which shows Virtual host is working properly
-
-
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/config-test-output.PNG)
-
-
-
-
-**Step 5** - Enable PHP on the website
-
-We needed to edit the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the DirectoryIndex directive so as to allow the php page be the landing page
-
-`sudo vim /etc/apache2/mods-enabled/dir.conf`
-
-```xml
-
-<IfModule mod_dir.c>
-        #Change this:
-        #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
-        #To this:
-        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
-</IfModule>
+CREATE TABLE example_database.todo_list (
+item_id INT AUTO_INCREMENT,
+content VARCHAR(255),
+PRIMARY KEY(item_id)
+);
 
 ```
 
-![](https://github.com/Tofumy/Tofumy-PBL/blob/main/change-dirconf.PNG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/Table_Create.JPG)
 
 
-Create a new file named index.php inside your custom web root folder:
+Inserted a few rows of content in the todo_list table:
 
-`$ vim /var/www/projectlamp/index.php`
+`INSERT INTO Tofumy_DB.todo_list (content) VALUES ("I want to finish my DevOps Project")`
+
+`INSERT INTO Tofumy_DB.todo_list (content) VALUES ("I want to watch some advanced linux videos")`
 
 
-```php
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/Table_Insert.JPG)
 
+
+To confirm that the data was successfully saved to the table, we wll run the below:
+
+`SELECT * FROM Tofumy_DB.todo_list;`
+
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/Table_Select.JPG)
+
+
+Created a new PHP file in your custom web root directory using your nano editor. 
+
+`$ nano /var/www/projectLEMP/todo_list.php`
+
+``` php
 <?php
-phpinfo();
+$user = "Tofumy";
+$password = "damilola";
+$database = "Tofumy_DB";
+$table = "todo_list";
+
+try {
+  $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
+  echo "<h2>TODO-LIST</h2><ol>";
+  foreach($db->query("SELECT content FROM $table") as $row) {
+    echo "<li>" . $row['content'] . "</li>";
+  }
+  echo "</ol>";
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
 
 ```
 
-Reloaded apache for changes to take place
-
-`$ sudo systemctl reload apache2`
-
-![screenshot](https://github.com/Tofumy/Tofumy-PBL/blob/main/indexphp.PNG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/todo_list_php.JPG)
 
 
+We test and try to access the public Ip address in the browser *http://3.143.233.240/todo_list.php*
 
-The output shows that PHP installation is working as expected
 
-![PHP landing](https://github.com/Tofumy/Tofumy-PBL/blob/main/landingphp.PNG)
+![screenshot](https://github.com/Tofumy/Tofumy-PBL2/blob/main/todo_list_output.JPG)
+
+
+**THE END**
+
+
